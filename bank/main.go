@@ -3,25 +3,33 @@ package main
 import (
 	"fmt"
 
+	"alessio.com/study/clientes"
 	"alessio.com/study/contas"
 )
 
-func main() {
+func PagarBoleto(conta verificarConta, valorDoBoleto float64) {
+	conta.Sacar(valorDoBoleto)
+}
 
+type verificarConta interface {
+	Sacar(valor float64) string
+}
+
+func main() {
 	contaDoGuilherme := contas.ContaCorrente{
-		Titular:       "Guilherme",
+		Titular:       clientes.Titular{Nome: "Guilherme"},
 		NumeroAgencia: 2344,
 		NumeroConta:   83929283,
-		Saldo:         345,
 	}
 	contaDoGuilherme.NumeroAgencia = 33
+	contaDoGuilherme.Depositar(400)
 
 	fmt.Println(contaDoGuilherme)
 	fmt.Println(contaDoGuilherme.Sacar(234))
 	fmt.Println(contaDoGuilherme)
 
 	contaDaCris := new(contas.ContaCorrente)
-	contaDaCris.Titular = "Cris"
+	contaDaCris.Titular = clientes.Titular{Nome: "Cris"}
 
 	fmt.Println(contaDaCris)
 
@@ -34,5 +42,11 @@ func main() {
 
 	fmt.Println(contaDoGuilherme, contaDaCris)
 	contaDoGuilherme.Transferir(40, contaDaCris)
+	fmt.Println(contaDoGuilherme, contaDaCris)
+
+	fmt.Println(contaDoGuilherme.ObterSaldo())
+
+	PagarBoleto(&contaDoGuilherme, 10)
+	PagarBoleto(contaDaCris, 10)
 	fmt.Println(contaDoGuilherme, contaDaCris)
 }
