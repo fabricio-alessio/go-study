@@ -54,3 +54,40 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	models.DeletaProduto(idProduto)
 	http.Redirect(w, r, "/", 301)
 }
+
+func Edit(w http.ResponseWriter, r *http.Request) {
+	idProdutoStr := r.URL.Query().Get("id")
+	idProduto, err := strconv.Atoi(idProdutoStr)
+	if err != nil {
+		panic("Impossible to convert product id using" + idProdutoStr)
+	}
+	produto := models.RetornaProduto(idProduto)
+
+	temp.ExecuteTemplate(w, "Edit", produto)
+}
+
+func Update(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		nome := r.FormValue("nome")
+		descricao := r.FormValue("descricao")
+		preco := r.FormValue("preco")
+		quantidade := r.FormValue("quantidade")
+
+		idConvertido, err := strconv.Atoi(id)
+		if err != nil {
+			panic(err.Error())
+		}
+		precoConvertido, err := strconv.ParseFloat(preco, 64)
+		if err != nil {
+			panic(err.Error())
+		}
+		quantidadeConvertida, err := strconv.Atoi(quantidade)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		models.EditProduto(idConvertido, nome, descricao, precoConvertido, quantidadeConvertida)
+	}
+	http.Redirect(w, r, "/", 301)
+}

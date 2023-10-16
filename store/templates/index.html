@@ -1,9 +1,7 @@
 {{define "Index"}}
 {{template "_head"}}
+{{template "_menu"}}
 <body>
-    <nav class="navbar navbar-light bg-light mb-4">
-        <a class="navbar-brand" href="/">Alura Loja</a>
-    </nav>
     <div class="container">
         <section class="card">
             <div>
@@ -23,6 +21,7 @@
                             <td>{{.Descricao}}</td>
                             <td>{{.Preco}}</td>
                             <td>{{.Quantidade}}</td>
+                            <td><a href="edit?id={{.Id}}" class="btn btn-info">Editar</a></td>
                             <td><button onclick="onDelete('{{.Id}}')"  class="btn btn-danger">Deletar</button></td>
                         </tr>
                         {{end}}

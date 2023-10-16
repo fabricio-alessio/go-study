@@ -9,6 +9,6 @@ import (
 
 func main() {
 	routes.CarregaRotas()
-	log.Println("Starting")
+	log.Println("Starting on port 8000")
 	http.ListenAndServe(":8000", nil)
 }
