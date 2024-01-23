@@ -2,7 +2,10 @@ go 1.21.0
 
 use (
 	./bank
-	./store
-	./go-rest-api
+	./challenges
 	./gin-api-rest
+	./go-rest-api
+	./greetings
+	./hellogree
+	./store
 )
