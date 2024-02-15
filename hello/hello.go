@@ -17,7 +17,7 @@ const MONITORING_QUANTITY = 2
 const MONITORING_DELAY = 5
 
 func main() {
-	registerLog("teste", true)
+	registerLog("test", true)
 
 	showIntroduction()
 
